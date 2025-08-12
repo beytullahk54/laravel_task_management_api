@@ -2,13 +2,18 @@
 
 ## Kurulum
 
-- git clone https://github.com/beytullahk54/laravel_task_management_api.git 
+```bash
+git clone https://github.com/beytullahk54/laravel_task_management_api.git 
+cd laravel_task_management_api
+cp .env.example .env
+composer install
+php artisan key:generate
+php artisan migrate
+php artisan db:seed
+php artisan serve
+```
 
-- cd laravel_task_management_api && cp .env.example .env
-
-- composer install
-
-- php artisan serve
+## Test Kullanıcısı
 
 ```
 Kullanıcı Adı: info@kahraman.com
@@ -17,7 +22,9 @@ Kullanıcı Adı: info@kahraman.com
 
 ## Yapılacaklar
 
-[ ] Migrate dosyaları oluşturulacak
+- [ ] Migrate dosyaları oluşturulacak
+- [ ] API endpoints tamamlanacak
+- [ ] Validation rules geliştirilecek
 
 ## Frontend Notları
 
