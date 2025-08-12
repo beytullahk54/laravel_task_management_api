@@ -22,9 +22,12 @@ Kullanıcı Adı: info@kahraman.com
 
 ## Yapılacaklar
 
-- [ ] Migrate dosyaları oluşturulacak
-- [ ] API endpoints tamamlanacak
-- [ ] Validation rules geliştirilecek
+- [X] Migrate dosyaları oluşturulacak
+- [ ] Validation oluşturulması
+- [ ] Storage konfigurasyonu
+- [ ] Redis kurulacak
+- [ ] Event listener oluşturulacak
+- [ ] Middleware oluşturulacak
 
 ## Frontend Notları
 
