@@ -2,7 +2,11 @@
 
 ## Kurulum
 
+- git clone https://github.com/beytullahk54/laravel_task_management_api.git
+- cd laravel_task_management_api && mv .env.example .env
 - composer install
+
+- php artisan serve
 
 ```
 Kullanıcı Adı: info@kahraman.com
