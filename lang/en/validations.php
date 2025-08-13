@@ -18,4 +18,7 @@ return [
     'due_date' => 'due date',
     'team' => 'team',
     'created_by' => 'created by',
+    'name' => 'name',
+    'password_confirmation' => 'password confirmation',
+    'same' => 'The :attribute and :other must match.',
 ];

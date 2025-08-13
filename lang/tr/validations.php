@@ -19,5 +19,7 @@ return [
     'created_by' => 'oluşturan',
     'validation_failed' => 'Doğrulama hatası.',
     'unauthorized' => 'Yetkisiz erişim.',
-    
+    'name' => 'ad',
+    'password_confirmation' => 'şifre tekrarı',
+    'same' => 'Şifreler eşleşmiyor.',
 ];

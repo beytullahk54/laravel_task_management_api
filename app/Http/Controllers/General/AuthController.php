@@ -6,8 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Request\Auth\LoginStore;
+use App\Http\Request\Auth\RegisterStore;
 
-class LoginController extends Controller
+class AuthController extends Controller
 {
     public function login(LoginStore $request)
     {
@@ -31,6 +32,22 @@ class LoginController extends Controller
 
             return $this->successWithToken($token, $userData, __('auth.auth_success'));
             
+        } catch (\Throwable $th) {
+            return $this->error($th->getMessage());
+        }
+    }
+
+    public function register(RegisterStore $request)
+    {
+        try {
+            $requestData = $request->validated();
+
+            $user = User::create($requestData);
+
+            return $this->success(
+                $user,
+                'Kullanıcı başarıyla oluşturuldu.'
+            );
         } catch (\Throwable $th) {
             return $this->error($th->getMessage());
         }

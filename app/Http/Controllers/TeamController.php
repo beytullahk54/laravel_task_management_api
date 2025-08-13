@@ -43,21 +43,26 @@ class TeamController extends Controller
         }
     }
 
-    public function destroy($id)
+    public function memberCreate($id)
     {
         try {
-            $team = Team::find($id);
-            
-            if (!$team) {
-                return $this->error('Takım bulunamadı.', null, 404);
-            }
-            
-            $team->delete();
-            Cache::forget('teams');
 
             return $this->success(
                 [],
-                'Takım başarıyla silindi.'
+                'Takıma üye eklendi.'
+            );
+        } catch (\Exception $e) {
+            return $this->error($e->getMessage());
+        }
+    }
+
+    public function memberDelete($id, $user_id)
+    {
+        try {
+
+            return $this->success(
+                [],
+                'Takımdan üye silindi.'
             );
         } catch (\Exception $e) {
             return $this->error($e->getMessage());
