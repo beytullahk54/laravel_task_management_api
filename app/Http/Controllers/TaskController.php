@@ -22,7 +22,7 @@ class TaskController extends Controller
                 'Görevler başarıyla getirildi.'
             );   
         } catch (\Exception $e) {
-            return $this->error($e->getMessage());
+            return $this->error($e->getMessage(), null, 500);
         }
     }
 
@@ -34,10 +34,11 @@ class TaskController extends Controller
 
             return $this->success(
                 $data,
-                'Görev başarıyla oluşturuldu.'
+                'Görev başarıyla oluşturuldu.',
+                201
             );
         } catch (\Exception $e) {
-            return $this->error($e->getMessage());
+            return $this->error($e->getMessage(), null, 500);
         }
     }
 
@@ -58,7 +59,7 @@ class TaskController extends Controller
                 'Görev başarıyla güncellendi.'
             );
         } catch (\Exception $e) {
-            return $this->error($e->getMessage());
+            return $this->error($e->getMessage(), null, 500);
         }
     }
 
@@ -79,7 +80,7 @@ class TaskController extends Controller
                 'Görev başarıyla silindi.'
             );
         } catch (\Exception $e) {
-            return $this->error($e->getMessage());
+            return $this->error($e->getMessage(), null, 500);
         }
     }
 
@@ -93,7 +94,7 @@ class TaskController extends Controller
                 'Dosyalar başarıyla getirildi.'
             );
         } catch (\Exception $e) {
-            return $this->error($e->getMessage());
+            return $this->error($e->getMessage(), null, 500);
         }
     }
 }

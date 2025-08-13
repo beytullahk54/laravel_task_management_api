@@ -23,7 +23,7 @@ class TeamController extends Controller
                 'index'
             );
         } catch (\Exception $e) {
-            return $this->error($e->getMessage());
+            return $this->error($e->getMessage(), null, 500);
         }
        
     }
@@ -36,10 +36,11 @@ class TeamController extends Controller
 
             return $this->success(
                 $team,
-                'Takım başarıyla oluşturuldu.'
+                'Takım başarıyla oluşturuldu.',
+                201
             );
         } catch (\Exception $e) {
-            return $this->error($e->getMessage());
+            return $this->error($e->getMessage(), null, 500);
         }
     }
 
@@ -52,7 +53,7 @@ class TeamController extends Controller
                 'Takıma üye eklendi.'
             );
         } catch (\Exception $e) {
-            return $this->error($e->getMessage());
+            return $this->error($e->getMessage(), null, 500);
         }
     }
 
@@ -65,7 +66,7 @@ class TeamController extends Controller
                 'Takımdan üye silindi.'
             );
         } catch (\Exception $e) {
-            return $this->error($e->getMessage());
+            return $this->error($e->getMessage(), null, 500);
         }
     }
 }

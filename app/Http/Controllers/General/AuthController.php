@@ -33,7 +33,7 @@ class AuthController extends Controller
             return $this->successWithToken($token, $userData, __('auth.auth_success'));
             
         } catch (\Throwable $th) {
-            return $this->error($th->getMessage());
+            return $this->error($th->getMessage(), null, 500);
         }
     }
 
@@ -49,7 +49,7 @@ class AuthController extends Controller
                 'Kullanıcı başarıyla oluşturuldu.'
             );
         } catch (\Throwable $th) {
-            return $this->error($th->getMessage());
+            return $this->error($th->getMessage(), null, 500);
         }
     }
 
