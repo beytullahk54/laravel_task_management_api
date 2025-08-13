@@ -15,7 +15,7 @@ class TeamController extends Controller
     {
         try {
             $data = Cache::remember('teams', 60, function () {
-                return Team::paginate(10);
+                return Team::cursorPaginate(10);
             });
     
             return $this->success(

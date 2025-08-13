@@ -13,8 +13,37 @@ class TaskController extends Controller
     public function index()
     {
         try {
-            $data = Cache::remember('tasks', 60, function () {
-                return Task::with(['team', 'assignedUser'])->paginate(10);
+            $cacheKey = sprintf(
+                'tasks:%s:%s:%s:%s',
+                request()->team_id ?? 'null',
+                request()->assigned_user_id ?? 'null', 
+                request()->status ?? 'null',
+                request()->title ?? 'null'
+            );
+
+            $data = Cache::remember($cacheKey, 60, function () {
+                $tasks = Task::query();
+
+                if (request()->has('team_id')) {
+                    $tasks->where('team_id', request()->team_id);
+                }
+
+                if (request()->has('assigned_user_id')) {
+                    $tasks->where('assigned_user_id', request()->assigned_user_id);
+                }
+
+                if (request()->has('status')) {
+                    $tasks->where('status', request()->status);
+                }
+
+                if (request()->has('title')) {
+                    $tasks->where('title', 'like', '%' . request()->title . '%');
+                }
+
+                $tasks->with(['team', 'assignedUser']);
+                $tasks->orderBy('created_at', 'desc');
+
+                return $tasks->cursorPaginate(10);
             });
     
             return $this->success(
