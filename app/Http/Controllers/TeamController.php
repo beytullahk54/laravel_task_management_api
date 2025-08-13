@@ -44,10 +44,16 @@ class TeamController extends Controller
         }
     }
 
-    public function memberCreate($id)
+    public function memberCreate($id,Request $request)
     {
         try {
+            $team = Team::find($id);
 
+            if (!$team) {
+                return $this->error('Takım bulunamadı.', null, 404);
+            }
+
+            $team->members()->attach($request->user_id);
             return $this->success(
                 [],
                 'Takıma üye eklendi.'
@@ -61,6 +67,13 @@ class TeamController extends Controller
     {
         try {
 
+            $team = Team::find($id);
+
+            if (!$team) {
+                return $this->error('Takım bulunamadı.', null, 404);
+            }
+
+            $team->members()->detach($user_id);
             return $this->success(
                 [],
                 'Takımdan üye silindi.'
