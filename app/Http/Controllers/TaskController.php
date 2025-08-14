@@ -12,13 +12,15 @@ use App\Events\TaskAssigned;
 use App\Events\TaskCompleted;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
+use App\Services\TaskService;
+
 class TaskController extends Controller
 {
-    /* 
-        [ ] TODO validate düzenlemesi
-        [ ] TODO service oluşturalım
-    */
-
+    protected $taskService;
+    public function __construct(TaskService $taskService)
+    {
+        $this->taskService = $taskService;
+    }
 
     public function index()
     {
@@ -69,9 +71,8 @@ class TaskController extends Controller
     {
         try {
             $requestData = $request->validated();
-            $data = Task::create($requestData);
-            event(new TaskAssigned($data->id));
-            Cache::forget('tasks');
+
+            $data = $this->taskService->createTask($requestData);
 
             return $this->success(
                 $data,
@@ -86,19 +87,8 @@ class TaskController extends Controller
     public function update(TaskUpdateRequest $request, $id)
     {
         try {
-            $data = Task::find($id);
-            
-            if (!$data) {
-                return $this->error('Görev bulunamadı.', null, 404);
-            }
-            
             $requestData = $request->validated();
-            $data->update($requestData);
-
-            if($requestData['status'] == 'completed') {
-                event(new TaskCompleted($id));
-            }
-            Cache::forget('tasks');
+            $data = $this->taskService->updateTask($requestData, $id);
 
             return $this->success(
                 $data,
@@ -133,32 +123,12 @@ class TaskController extends Controller
     public function files(Request $request, $id)
     {
         try {
-
-            $task = Task::find($id);
-            $task->load('files');
-            
-            $task->files->each(function ($file) use ($task) {
-                Storage::disk('public')->delete($file->file_path);
-                $file->delete();
-                $task->files()->delete($file->id);
-            });
-
-            $file = $request->file('file');
-            $extension = $file->getClientOriginalExtension();
-            $timestamp = Carbon::now()->timestamp; //Şuanın benzersiz zaman karşılığı
-            $filename = Carbon::now()->format('Ymd_His').'_'.$timestamp.'.'.$extension; // turid_turtype_suan_timestamp
-
-            $path = $file->storeAs('files/'.$task->id, $filename, 'public');
-
-            $task->files()->create([
-                'filename' => $filename,
-                'original_name' => $file->getClientOriginalName(),
-                'file_path' => $path,
-            ]);
+            $data = $this->taskService->files($request, $id);
 
             return $this->success(
-                $task->files,
-                'Dosya başarıyla oluşturuldu.'
+                $data,
+                'Dosya başarıyla oluşturuldu.',
+                201
             );
         } catch (\Exception $e) {
             return $this->error($e->getMessage(), null, 500);
