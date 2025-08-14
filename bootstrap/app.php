@@ -5,6 +5,9 @@ use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Support\Facades\Event;
+use App\Events\TaskAssigned;
+use App\Listeners\SendTaskAssignedEmail;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -17,6 +20,10 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->api(prepend: [
             \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class
         ]);
+        
+        $middleware->alias([
+            'team.owner' => \App\Http\Middleware\TeamOwnerCheck::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->render(function (AuthenticationException $e, Request $request) {
@@ -27,4 +34,6 @@ return Application::configure(basePath: dirname(__DIR__))
                     'error' => $e->getMessage(),
                 ], 403);
         });
-    })->create();
+    })
+    ->withEvents(discover: [__DIR__.'/../app/Listeners'])
+    ->create();
