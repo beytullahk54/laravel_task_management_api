@@ -7,6 +7,7 @@ use App\Http\Controllers\TaskController;
 
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
+Route::post('/user', [AuthController::class, 'user'])->name('user')->middleware('auth:sanctum');
 
 Route::apiResource('teams', TeamController::class)->middleware('auth:sanctum');
 Route::post('teams/{id?}/members', [TeamController::class, 'memberCreate'])->middleware(['auth:sanctum', 'team.owner']);

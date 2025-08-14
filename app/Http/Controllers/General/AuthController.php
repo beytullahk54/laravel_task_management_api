@@ -53,4 +53,18 @@ class AuthController extends Controller
         }
     }
 
+    public function user()
+    {
+        try {
+            $user = auth()->user();
+
+            return $this->success(
+                $user,
+                'Kullanıcı başarıyla getirildi.'
+            );
+        } catch (\Throwable $th) {
+            return $this->error($th->getMessage(), null, 500);
+        }
+    }
+
 }
