@@ -20,10 +20,10 @@ class TaskStoreRequest extends FormRequest
             'title' => 'required|string',
             'description' => 'nullable|string',
             'status' => 'nullable|in:pending,in_progress,completed,cancelled',
-            'assigned_user_id' => 'nullable|integer',
+            'assigned_user_id' => 'nullable|integer|exists:users,id',
             'due_date' => 'nullable|date',
-            'team_id' => 'required|integer',
-            'created_by' => 'required|integer',
+            'team_id' => 'required|integer|exists:teams,id',
+            'created_by' => 'required|integer|exists:users,id',
         ];
     }
 

@@ -56,7 +56,8 @@ class TeamController extends Controller
             $team->members()->attach($request->user_id);
             return $this->success(
                 [],
-                'Takıma üye eklendi.'
+                'Takıma üye eklendi.',
+                201
             );
         } catch (\Exception $e) {
             return $this->error($e->getMessage(), null, 500);
