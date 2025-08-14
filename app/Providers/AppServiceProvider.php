@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use App\Events\TaskAssigned;
+use App\Listeners\SendTaskAssignedEmail;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Event;
 
 class AppServiceProvider extends ServiceProvider
 {

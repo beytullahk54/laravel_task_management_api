@@ -6,17 +6,20 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use App\Models\Task;
 
-class TaskAssignedNotification extends Notification
+class TaskAssignedNotification extends Notification implements ShouldQueue
 {
     use Queueable;
+
+    public $task_id;
 
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public function __construct($task_id)
     {
-        //
+        $this->task_id = $task_id;
     }
 
     /**
@@ -34,10 +37,15 @@ class TaskAssignedNotification extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
+        $task = Task::find($this->task_id);
+
         return (new MailMessage)
-            ->line('The introduction to the notification.')
-            ->action('Notification Action', url('/'))
-            ->line('Thank you for using our application!');
+            ->subject('Görev atandı: '.$task->title)
+            ->greeting('Merhaba '.$notifiable->name)
+            ->line($task->title.' görevi size atandı.')
+            ->action('Görev', url('/tasks/'.$task->id))
+            ->line('Görev açıklaması: '.$task->description)
+            ->line('Teşekkürler,');
     }
 
     /**

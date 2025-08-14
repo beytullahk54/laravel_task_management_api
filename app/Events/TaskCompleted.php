@@ -14,12 +14,14 @@ class TaskCompleted
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public $task_id;
+
     /**
      * Create a new event instance.
      */
-    public function __construct()
+    public function __construct($task_id)
     {
-        //
+        $this->task_id = $task_id;
     }
 
     /**
@@ -30,7 +32,7 @@ class TaskCompleted
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('channel-name'),
+            new Channel('task-completed'),
         ];
     }
 }

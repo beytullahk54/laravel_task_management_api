@@ -9,17 +9,21 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class TaskAssigned
+//implements ShouldQueue
+class TaskAssigned 
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
+
+    public $task_id;
 
     /**
      * Create a new event instance.
      */
-    public function __construct()
+    public function __construct($task_id)
     {
-        //
+        $this->task_id = $task_id;
     }
 
     /**
@@ -30,7 +34,15 @@ class TaskAssigned
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('channel-name'),
+            new Channel('task-assigned'),
+        ];
+    }
+
+    public function broadcastWith()
+    {
+        return [
+            'message' => 'Task assigned',
+            'id' => $this->task_id,
         ];
     }
 }

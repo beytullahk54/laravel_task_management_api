@@ -8,8 +8,17 @@ use Illuminate\Support\Facades\Cache;
 use App\Models\Task;
 use App\Http\Request\Task\TaskStoreRequest;
 use App\Http\Request\Task\TaskUpdateRequest;
+use App\Events\TaskAssigned;
+use App\Events\TaskCompleted;
+
 class TaskController extends Controller
 {
+    /* 
+        [ ] TODO validate düzenlemesi
+        [ ] TODO service oluşturalım
+    */
+
+
     public function index()
     {
         try {
@@ -58,7 +67,9 @@ class TaskController extends Controller
     public function store(TaskStoreRequest $request)
     {
         try {
-            $data = Task::create($request->validated());
+            $requestData = $request->validated();
+            $data = Task::create($requestData);
+            event(new TaskAssigned($data->id));
             Cache::forget('tasks');
 
             return $this->success(
@@ -80,7 +91,12 @@ class TaskController extends Controller
                 return $this->error('Görev bulunamadı.', null, 404);
             }
             
-            $data->update($request->validated());
+            $requestData = $request->validated();
+            $data->update($requestData);
+
+            if($requestData['status'] == 'completed') {
+                event(new TaskCompleted($id));
+            }
             Cache::forget('tasks');
 
             return $this->success(

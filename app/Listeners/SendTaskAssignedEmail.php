@@ -2,8 +2,15 @@
 
 namespace App\Listeners;
 
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\Log;
+use App\Events\TaskAssigned;
+use App\Mail\TaskAssigned as TaskAssignedMail;
+use Illuminate\Support\Facades\Mail;
+use App\Models\Task;
+use App\Events\TaskAssigned as TaskAssignedEvent;
+use Illuminate\Support\Facades\Notification;
+use App\Models\User;
+use App\Notifications\TaskAssignedNotification;
 
 class SendTaskAssignedEmail
 {
@@ -13,13 +20,14 @@ class SendTaskAssignedEmail
     public function __construct()
     {
         //
-    }
+    }   
 
     /**
      * Handle the event.
      */
-    public function handle(object $event): void
+    public function handle(TaskAssigned $event): void
     {
-        //
+        $task = Task::find($event->task_id);
+        Notification::send(User::find($task->assigned_user_id), new TaskAssignedNotification($event->task_id));
     }
 }
