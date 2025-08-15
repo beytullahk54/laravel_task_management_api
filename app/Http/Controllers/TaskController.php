@@ -52,7 +52,7 @@ class TaskController extends Controller
                     $tasks->where('title', 'like', '%' . request()->title . '%');
                 }
 
-                $tasks->with(['team', 'assignedUser']);
+                $tasks->with(['team', 'assignedUser', 'files:id,task_id,file_path']);
                 $tasks->orderBy('created_at', 'desc');
 
                 return $tasks->cursorPaginate(10);

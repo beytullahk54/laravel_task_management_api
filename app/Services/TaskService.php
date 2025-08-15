@@ -54,8 +54,8 @@ class TaskService
 
         $file = $request->file('file');
         $extension = $file->getClientOriginalExtension();
-        $timestamp = Carbon::now()->timestamp; //Şuanın benzersiz zaman karşılığı
-        $filename = Carbon::now()->format('Ymd_His').'_'.$timestamp.'.'.$extension; // turid_turtype_suan_timestamp
+        $timestamp = Carbon::now()->timestamp; 
+        $filename = Carbon::now()->format('Ymd_His').'_'.$timestamp.'.'.$extension; 
 
         $path = $file->storeAs('files/'.$task->id, $filename, 'public');
 
@@ -64,6 +64,8 @@ class TaskService
             'original_name' => $file->getClientOriginalName(),
             'file_path' => $path,
         ]);
+
+        Cache::forget('tasks');
 
         return $task;
     }
