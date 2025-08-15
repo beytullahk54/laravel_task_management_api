@@ -10,6 +10,7 @@ composer install
 php artisan key:generate
 php artisan migrate
 php artisan db:seed
+php artisan storage:link
 php artisan serve
 ```
 
@@ -20,15 +21,9 @@ Kullanıcı Adı: info@kahraman.com
 Şifre: 12345678
 ```
 
-## Yapılacaklar
 
-- [X] Migrate dosyaları oluşturulacak
-- [ ] Validation oluşturulması
-- [ ] Storage konfigurasyonu
-- [ ] Redis kurulacak
-- [ ] Event listener oluşturulacak
-- [ ] Middleware oluşturulacak
 
 ## Frontend Notları
 
 - Frontend tarafında validasyonlar array olarak dönmektedir. Foreach dönerek hatalar ekranda gösterilebilir
+- Görsellerde Task files relationship ile dönmektedir. Görseller için path'in başına 'storage/' eklenmelidir. 
