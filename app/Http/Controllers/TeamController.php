@@ -36,7 +36,7 @@ class TeamController extends Controller
 
             return $this->success(
                 $team,
-                __("created_success"),
+                __("validations.created_success"),
                 201
             );
         } catch (\Exception $e) {
@@ -56,7 +56,7 @@ class TeamController extends Controller
             $team->members()->attach($request->user_id);
             return $this->success(
                 [],
-                __("member_added_success"),
+                __("validations.member_added_success"),
                 201
             );
         } catch (\Exception $e) {
@@ -77,7 +77,7 @@ class TeamController extends Controller
             $team->members()->detach($user_id);
             return $this->success(
                 [],
-                __("deleted_success")
+                __("validations.deleted_success")
             );
         } catch (\Exception $e) {
             return $this->error($e->getMessage(), null, 500);

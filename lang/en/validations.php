@@ -24,8 +24,12 @@ return [
     "created_success"=>"Creation successful",
     "updated_success"=>"The update was successful.",
     "deleted_success"=>"The delete was successfull",
-    "file_uploaded_success"=>"The file update was successful",
     "not_found"=>"Not found",
-    "member_added_success"=>"The member was added successfully"
+    "member_added_success"=>"The member was added successfully",
+    "file_uploaded_success"=>"The file update was successful",
+    "file"=>"The file field is required.",
+    "mimes"=>"The file must be a file of type: jpeg, png, jpg, pdf.",
+    "max"=>"The file may not be greater than 2048 kilobytes.",
+    "get_success"=>"The data was successfully retrieved.",
 
 ];

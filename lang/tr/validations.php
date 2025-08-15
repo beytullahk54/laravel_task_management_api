@@ -27,5 +27,9 @@ return [
     "deleted_success" => "Silme işlemi başarılı",
     "file_uploaded_success" => "Dosya yükleme işlemi başarılı",
     "not_found" => "Bulunamadı",
-    "member_added_success"=>"Üye ekleme işlemi başarılı"
+    "member_added_success"=>"Üye ekleme işlemi başarılı",
+    "file"=>"Dosya alanı zorunludur.",
+    "mimes"=>"Dosya türü jpeg, png, jpg, pdf olmalıdır.",
+    "max"=>"Dosya boyutu 2048 kilobayt'tan büyük olamaz.",
+    "get_success"=>"Veri başarıyla getirildi."
 ];

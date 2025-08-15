@@ -41,7 +41,7 @@ class TaskService
         return $data;
     }
 
-    public function files($request, $id)
+    public function files($requestData, $id)
     {
         $task = Task::find($id);
         $task->load('files');
@@ -52,7 +52,7 @@ class TaskService
             $task->files()->delete($file->id);
         });
 
-        $file = $request->file('file');
+        $file = $requestData['file'];
         $extension = $file->getClientOriginalExtension();
         $timestamp = Carbon::now()->timestamp; 
         $filename = Carbon::now()->format('Ymd_His').'_'.$timestamp.'.'.$extension; 

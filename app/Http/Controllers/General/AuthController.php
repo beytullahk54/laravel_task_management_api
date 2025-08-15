@@ -46,7 +46,7 @@ class AuthController extends Controller
 
             return $this->success(
                 $user,
-                'Kullanıcı başarıyla oluşturuldu.'
+                __('validations.created_success')
             );
         } catch (\Throwable $th) {
             return $this->error($th->getMessage(), null, 500);
@@ -60,7 +60,7 @@ class AuthController extends Controller
 
             return $this->success(
                 $user,
-                'Kullanıcı başarıyla getirildi.'
+                __('validations.get_success')
             );
         } catch (\Throwable $th) {
             return $this->error($th->getMessage(), null, 500);

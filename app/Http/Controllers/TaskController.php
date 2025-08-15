@@ -8,10 +8,7 @@ use Illuminate\Support\Facades\Cache;
 use App\Models\Task;
 use App\Http\Request\Task\TaskStoreRequest;
 use App\Http\Request\Task\TaskUpdateRequest;
-use App\Events\TaskAssigned;
-use App\Events\TaskCompleted;
-use Illuminate\Support\Facades\Storage;
-use Carbon\Carbon;
+use App\Http\Request\Task\TaskFileRequest;
 use App\Services\TaskService;
 
 class TaskController extends Controller
@@ -60,7 +57,7 @@ class TaskController extends Controller
     
             return $this->success(
                 $data,
-                'Görevler başarıyla getirildi.'
+                __('validations.get_success')
             );   
         } catch (\Exception $e) {
             return $this->error($e->getMessage(), null, 500);
@@ -76,7 +73,7 @@ class TaskController extends Controller
 
             return $this->success(
                 $data,
-                __("created_success"),
+                __('validations.created_success'),
                 201
             );
         } catch (\Exception $e) {
@@ -92,7 +89,7 @@ class TaskController extends Controller
 
             return $this->success(
                 $data,
-                __("updated_success")
+                __('validations.updated_success')
             );
         } catch (\Exception $e) {
             return $this->error($e->getMessage(), null, 500);
@@ -113,21 +110,22 @@ class TaskController extends Controller
 
             return $this->success(
                 [],
-                __("deleted_success")
+                __('validations.deleted_success')
             );
         } catch (\Exception $e) {
             return $this->error($e->getMessage(), null, 500);
         }
     }
 
-    public function files(Request $request, $id)
+    public function files(TaskFileRequest $request, $id)
     {
         try {
-            $data = $this->taskService->files($request, $id);
+            $requestData = $request->validated();
+            $data = $this->taskService->files($requestData, $id);
 
             return $this->success(
                 $data,
-                __("file_uploaded_success"),
+                __('validations.file_uploaded_success'),
                 201
             );
         } catch (\Exception $e) {
