@@ -7,6 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use App\Models\Task;
+use App\Mail\TaskAssigned;
 
 class TaskAssignedNotification extends Notification implements ShouldQueue
 {
@@ -35,17 +36,11 @@ class TaskAssignedNotification extends Notification implements ShouldQueue
     /**
      * Get the mail representation of the notification.
      */
-    public function toMail(object $notifiable): MailMessage
+    public function toMail(object $notifiable): TaskAssigned
     {
-        $task = Task::find($this->task_id);
+        $task = Task::with('assignedUser')->find($this->task_id);
 
-        return (new MailMessage)
-            ->subject('Görev atandı: '.$task->title)
-            ->greeting('Merhaba '.$notifiable->name)
-            ->line($task->title.' görevi size atandı.')
-            ->action('Görev', url('/tasks/'.$task->id))
-            ->line('Görev açıklaması: '.$task->description)
-            ->line('Teşekkürler,');
+        return (new TaskAssigned($task))->to($notifiable->email);
     }
 
     /**

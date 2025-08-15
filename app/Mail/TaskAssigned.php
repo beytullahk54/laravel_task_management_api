@@ -13,12 +13,14 @@ class TaskAssigned extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $task;
+
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct($task)
     {
-        //
+        $this->task = $task;
     }
 
     /**
@@ -27,7 +29,7 @@ class TaskAssigned extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Task Assigned',
+            subject: 'Görev Atandı',
         );
     }
 
@@ -38,6 +40,9 @@ class TaskAssigned extends Mailable
     {
         return new Content(
             view: 'mail.task_assigned',
+            with: [
+                'task' => $this->task,
+            ],
         );
     }
 
