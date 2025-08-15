@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\Team;
+use App\Models\Task;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -14,10 +16,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->create([
-            'name' => 'Kahraman',
-            'email' => 'info@kahraman.com',
-            'password' => Hash::make('12345678'),
+        Team::create([
+            'name' => 'Team 1',
+            'owner_id' => 1,
         ]);
+        Team::create([
+            'name' => 'Team 2',
+            'owner_id' => 2,
+        ]);
+        Team::create([
+            'name' => 'Team 3',
+            'owner_id' => 3,
+        ]);
+
+        Task::factory()->count(10)->create();
     }
 }

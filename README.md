@@ -4,13 +4,11 @@
 
 ```bash
 git clone https://github.com/beytullahk54/laravel_task_management_api.git 
-cd laravel_task_management_api
 cp .env.example .env
 composer install
-php artisan key:generate
-php artisan migrate
-php artisan db:seed
-php artisan storage:link
+
+.env dosyasını düzenledikten sonra;
+php artisan app:install çalıştırmanız yeterlidir. Gerisini sistem yapacaktır.
 php artisan serve
 ```
 
