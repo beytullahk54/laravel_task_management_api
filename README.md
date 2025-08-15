@@ -9,18 +9,22 @@ composer install
 
 .env dosyasını düzenledikten sonra;
 php artisan app:install çalıştırmanız yeterlidir. Gerisini sistem yapacaktır.
+
+İşlemler tamamlandktan sonra;
 php artisan serve
+
+Farklı bir sekmede;
+php artisan queue:work 
 ```
 
 ## Test Kullanıcısı
 
 ```
-Kullanıcı Adı: info@kahraman.com
+Kullanıcı Adı: Oluşturduğunuz mail adreslerinden birisi
 Şifre: 12345678
 ```
 
 # Açıklamalar
-- Mailleri test edebilmek için lütfen user mail adreslerini kendi adreslerini olarak güncelleyin
 - Maillerin size ulaşabilmesi için smtp bilgilerinizi düzenlemeyi unutmayınız.
 
 ## Frontend Notları
