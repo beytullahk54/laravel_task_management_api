@@ -13,6 +13,14 @@ use App\Services\TaskService;
 
 class TaskController extends Controller
 {
+    /**
+     * Tüm cevaplar standarize edilerek ApiResponse traitinden gelmektedir. Trait Controller içinde tanımlı olmaktadır.
+     * Cevaplar istendiği kadar dile eklenebilmesi için lang dosyasında tanımlanmıştır.
+     * Veriler cache mekanizması ile dönülmektedir. Şu an amaç redis olmaktadır. Ancak cache laravel tarafından desteklendiği için farklı motorlarda dahil edilebilir.
+     * Task işlemleri sonunda öncelikle event->listener->notification çalışır. Bu işlemler kuyruğa alınmaktadır.
+     * Notification içerisinden özel şablon mail gönderilmektedir. 
+     */
+
     protected $taskService;
     public function __construct(TaskService $taskService)
     {
@@ -22,6 +30,10 @@ class TaskController extends Controller
     public function index()
     {
         try {
+            /*
+                team_id,assigned_user_id,status,title ile sorgulama yapılabilir. 
+                Her biri tamamen isteğe bağlıdır. Ve iç içe bir sorgu sistemi sayesinde veriler güçlü şekilde filtrelenebilir.
+            */
             $cacheKey = sprintf(
                 'tasks:%s:%s:%s:%s',
                 request()->team_id ?? 'null',
@@ -67,6 +79,10 @@ class TaskController extends Controller
     public function store(TaskStoreRequest $request)
     {
         try {
+            /*
+                Veriler TaskStoreRequest ile validate edilmektedir. Ardından temiz kod amaçlı servise gönderilmektedir.
+            */
+
             $requestData = $request->validated();
 
             $data = $this->taskService->createTask($requestData);
@@ -120,6 +136,10 @@ class TaskController extends Controller
     public function files(TaskFileRequest $request, $id)
     {
         try {
+            /*
+                Dosya yükleme işlemi TaskFileRequest ile validate edilmektedir. Dosya güvenli şekilde storage'a yüklenir.
+            */
+
             $requestData = $request->validated();
             $data = $this->taskService->files($requestData, $id);
 

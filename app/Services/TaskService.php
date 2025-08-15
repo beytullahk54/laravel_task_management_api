@@ -14,8 +14,14 @@ class TaskService
 {
     use ApiResponse;
 
+    /**
+     * Task modeli ile veri ekleme işlemi yapılır. Ardından TaskAssigned eventi tetiklenir.
+     * Her işlem sonrası cache temizlenir. Verilerin güncelliği sağlanır.
+     */
+
     public function createTask($requestData)
     {
+        //Task oluşturulduktan sonra task_assigned eventi tetiklenir.
         $data = Task::create($requestData);
         event(new TaskAssigned($data->id));
         Cache::forget('tasks');
@@ -43,6 +49,14 @@ class TaskService
 
     public function files($requestData, $id)
     {
+        /*
+        * Task dosya yükleme işlemi taska özel tabloda tutulmaktadır. 
+        * Imagine gibi bir tablo oluşturularak istendiği takdirde morpMany ilişkisi de kullanılabilir
+        * Dosya tarih_saat_dosya_adı şeklinde oluşturulmaktadır.
+        * Her seferinde bir dosya tutulmaktadır. Burası kaldırılırak istendiği kadar dosya kaydedilebilir.
+        * Cache silinerek tasklarda dosyanın güncel görünmesi sağlanır.
+        */
+
         $task = Task::find($id);
         $task->load('files');
         
