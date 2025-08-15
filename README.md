@@ -21,7 +21,9 @@ Kullanıcı Adı: info@kahraman.com
 Şifre: 12345678
 ```
 
-
+# Açıklamalar
+- Mailleri test edebilmek için lütfen user mail adreslerini kendi adreslerini olarak güncelleyin
+- Maillerin size ulaşabilmesi için smtp bilgilerinizi düzenlemeyi unutmayınız.
 
 ## Frontend Notları
 
