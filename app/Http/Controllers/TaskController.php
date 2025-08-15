@@ -76,7 +76,7 @@ class TaskController extends Controller
 
             return $this->success(
                 $data,
-                'Görev başarıyla oluşturuldu.',
+                __("created_success"),
                 201
             );
         } catch (\Exception $e) {
@@ -92,7 +92,7 @@ class TaskController extends Controller
 
             return $this->success(
                 $data,
-                'Görev başarıyla güncellendi.'
+                __("updated_success")
             );
         } catch (\Exception $e) {
             return $this->error($e->getMessage(), null, 500);
@@ -105,7 +105,7 @@ class TaskController extends Controller
             $task = Task::find($id);
             
             if (!$task) {
-                return $this->error('Görev bulunamadı.', null, 404);
+                return $this->error(__("not_found"), null, 404);
             }
             
             $task->delete();
@@ -113,7 +113,7 @@ class TaskController extends Controller
 
             return $this->success(
                 [],
-                'Görev başarıyla silindi.'
+                __("deleted_success")
             );
         } catch (\Exception $e) {
             return $this->error($e->getMessage(), null, 500);
@@ -127,7 +127,7 @@ class TaskController extends Controller
 
             return $this->success(
                 $data,
-                'Dosya başarıyla oluşturuldu.',
+                __("file_uploaded_success"),
                 201
             );
         } catch (\Exception $e) {

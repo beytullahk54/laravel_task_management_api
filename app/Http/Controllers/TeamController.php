@@ -36,7 +36,7 @@ class TeamController extends Controller
 
             return $this->success(
                 $team,
-                'Takım başarıyla oluşturuldu.',
+                __("created_success"),
                 201
             );
         } catch (\Exception $e) {
@@ -50,13 +50,13 @@ class TeamController extends Controller
             $team = Team::find($id);
 
             if (!$team) {
-                return $this->error('Takım bulunamadı.', null, 404);
+                return $this->error(__("not_found"), null, 404);
             }
 
             $team->members()->attach($request->user_id);
             return $this->success(
                 [],
-                'Takıma üye eklendi.',
+                __("member_added_success"),
                 201
             );
         } catch (\Exception $e) {
@@ -71,13 +71,13 @@ class TeamController extends Controller
             $team = Team::find($id);
 
             if (!$team) {
-                return $this->error('Takım bulunamadı.', null, 404);
+                return $this->error(__("not_found"), null, 404);
             }
 
             $team->members()->detach($user_id);
             return $this->success(
                 [],
-                'Takımdan üye silindi.'
+                __("deleted_success")
             );
         } catch (\Exception $e) {
             return $this->error($e->getMessage(), null, 500);

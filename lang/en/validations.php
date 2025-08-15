@@ -21,4 +21,11 @@ return [
     'name' => 'name',
     'password_confirmation' => 'password confirmation',
     'same' => 'The :attribute and :other must match.',
+    "created_success"=>"Creation successful",
+    "updated_success"=>"The update was successful.",
+    "deleted_success"=>"The delete was successfull",
+    "file_uploaded_success"=>"The file update was successful",
+    "not_found"=>"Not found",
+    "member_added_success"=>"The member was added successfully"
+
 ];

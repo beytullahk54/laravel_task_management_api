@@ -28,7 +28,7 @@ class TaskService
         $data = Task::find($id);
             
         if (!$data) {
-            return $this->error('Görev bulunamadı.', null, 404);
+            return $this->error(__("not_found"), null, 404);
         }
         
         $data->update($requestData);

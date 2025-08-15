@@ -22,4 +22,10 @@ return [
     'name' => 'ad',
     'password_confirmation' => 'şifre tekrarı',
     'same' => 'Şifreler eşleşmiyor.',
+    "created_success"=>'Oluşturma işlemi başarılı',
+    "updated_success"=>"Güncelleme işlemi başarılı",
+    "deleted_success" => "Silme işlemi başarılı",
+    "file_uploaded_success" => "Dosya yükleme işlemi başarılı",
+    "not_found" => "Bulunamadı",
+    "member_added_success"=>"Üye ekleme işlemi başarılı"
 ];
