@@ -26,6 +26,7 @@ Kullanıcı Adı: Oluşturduğunuz mail adreslerinden birisi
 
 # Açıklamalar
 - Maillerin size ulaşabilmesi için smtp bilgilerinizi düzenlemeyi unutmayınız.
+- Postman içine postman-collection.json dosyasını aktararak API endpointlerine ulaşabilirsiniz.
 
 ## Frontend Notları
 
